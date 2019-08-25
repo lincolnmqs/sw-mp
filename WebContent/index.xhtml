@@ -1,0 +1,306 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:include src="Conf/include/header.xhtml" />
+
+<h:body>
+
+	<ui:include src="Conf/include/menu.xhtml" />
+
+	<header>
+		<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+
+				<ui:repeat var="evento" value="#{eventoController.todosEventosAtivos}">
+					<li data-target="#carouselExampleIndicators" data-slide-to="#{eventoController.ind}"></li>
+	          		#{eventoController.setInd(eventoController.ind + 1)}
+	            </ui:repeat>
+
+			</ol>
+			<div class="carousel-inner" role="listbox">
+
+				<div class="carousel-item active">
+					<img class="d-block w-100" src="Conf/img/slide1.jpg"></img>
+					<div class="carousel-caption d-none d-md-block" style="background-color: rgba(10, 23, 55, 0.5)">
+						<h3>Maratonas</h3>
+						<p>Aqui você encontrará várias maratonas. Inscreva sua equipe e prepare-se!</p>
+					</div>
+				</div>
+
+				<ui:repeat var="evento" value="#{eventoController.todosEventos}">
+					<div class="carousel-item shadow-sm rounded"
+						style="background-image: url('#{evento.imagemBanner}')">
+						<div class="carousel-caption d-none d-md-block"
+							style="background-color: rgba(10, 23, 55, 0.7)">
+							<h3>#{evento.nome}</h3>
+							<p>Contato: #{evento.emailContato} - #{evento.telefoneContato}</p>
+						</div>
+					</div>
+				</ui:repeat>
+
+			</div>
+			<a class="carousel-control-prev" href="#carouselExampleIndicators"
+				role="button" data-slide="prev"> <span
+				class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+				class="sr-only">Previous</span>
+			</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
+				role="button" data-slide="next"> <span
+				class="carousel-control-next-icon" aria-hidden="true"></span> <span
+				class="sr-only">Next</span>
+			</a>
+		</div>
+	</header>
+	
+	<br></br>
+
+	<!-- Page Content -->
+	<div class="container-fluid" style="background-color: #14446ebf">
+
+		<h1 style="color: white; text-align: center; margin-bottom: 2%" class="text-uppercase my-4">
+			Eventos <i class="far fa-calendar-alt"></i>
+		</h1>
+
+		<!-- Marketing Icons Section -->
+		<div class="row mb-5">
+			<ui:repeat var="evento" value="#{eventoController.todosEventosAtivos}">
+      		#{eventoController.setClasseMapa(eventoController.ind)}
+      		#{eventoController.setClassePremiacao(eventoController.ind)}
+      		#{eventoController.setClasseEmail(eventoController.ind)}
+      		#{eventoController.setClasseTelefone(eventoController.ind)}
+      		#{eventoController.setClasseDescricao(eventoController.ind)}
+      		
+				<div class="col-md-4 mt-5">
+					<div class="card text-center">
+						<img class="card-img-top" src="#{evento.imagemLogo}" alt="Card image cap" />
+						<div class="card-body">
+							<h5 class="card-title">#{evento.nome}</h5>
+							
+							<div class="row">
+								<div class="col-lg-6">
+									<h5>Data Evento:</h5>
+									<h:outputLabel value="#{evento.dataEvento.time}" for="dataEvento" class="col-form-label">
+										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+									</h:outputLabel>
+								</div>
+								
+								<div class="col-lg-6">
+									<h5>Data Término Inscrição:</h5>
+									<h:outputLabel value="#{evento.dataFinalInscricao.time}" for="dataFinalInscricao" class="col-form-label">
+										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+									</h:outputLabel>
+								</div>
+							</div>
+							
+							<hr />
+							
+							<div class="row">
+								<div class="col-lg-6">
+									<p>
+										<a class="btn btn-primary" data-toggle="collapse"
+											href="##{eventoController.classeMapa}" role="button" aria-expanded="false"
+											aria-controls="#{eventoController.classeMapa}"> <i class="fas fa-map"></i>
+											Maps
+										</a>
+									</p>
+								</div>
+								
+								<div class="col-lg-6">
+									<p>
+										<a class="btn btn-primary" data-toggle="collapse" href="##{eventoController.classeDescricao}" role="button" aria-expanded="false"
+											aria-controls="#{eventoController.classeDescricao}"> <i class="fas fa-plus"></i>
+											Mais
+										</a>
+									</p>
+								</div>
+							</div>
+							
+							<div class="col-lg-12">
+								<div class="collapse" id="#{eventoController.classeMapa}">
+									<div class="card card-body">
+										<iframe
+											src="#{evento.universidade.mapa}"
+											width="100%" height="200" frameborder="0" style="border: 0"></iframe>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-lg-12">
+								<div class="collapse" id="#{eventoController.classeDescricao}">
+									<p style="text-align: justify;">#{evento.descricao}</p>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer text-muted">
+							<div class="row">
+								<div class="col">
+									<a data-toggle="collapse"
+									href="##{eventoController.classePremiacao}" role="button" aria-expanded="false"
+									aria-controls="#{eventoController.classePremiacao}">
+										<i style="font-size: 140%;" class="fas fa-trophy"></i>
+									</a>
+								</div>
+								<div class="col">
+									<a data-toggle="collapse"
+									href="##{eventoController.classeEmail}" role="button" aria-expanded="false"
+									aria-controls="#{eventoController.classeEmail}"><i style="font-size: 140%;" class="fas fa-envelope"></i></a>
+								</div>
+								<div class="col">
+									<a data-toggle="collapse"
+									href="##{eventoController.classeTelefone}" role="button" aria-expanded="false"
+									aria-controls="#{eventoController.classeTelefone}"><i style="font-size: 140%;" class="fas fa-phone"></i></a>
+								</div>
+							</div>
+						</div>
+						
+						<div class="collapse" id="#{eventoController.classePremiacao}">
+							<div class="card card-body">
+								<h5>Premiações</h5>
+								<ui:repeat var="ranking" value="#{eventoController.premiacoesdoEvento(evento)}">
+									<p>#{ranking.colocacao.nome} - #{ranking.premiacao}</p>
+								</ui:repeat>
+							</div>
+						</div>
+						
+						<div class="collapse" id="#{eventoController.classeEmail}">
+							<div class="card card-body">
+								<h5>E-mail para Contato</h5>
+								<p>#{evento.emailContato}</p>
+							</div>
+						</div>
+						
+						<div class="collapse" id="#{eventoController.classeTelefone}">
+							<div class="card card-body">
+								<h5>Telefone para Contato</h5>
+								<p>#{evento.telefoneContato}</p>
+							</div>
+						</div>
+							
+					</div>
+				</div>
+				#{eventoController.setInd(eventoController.ind + 1)}
+			</ui:repeat>
+		</div>
+		<br></br>
+	</div>
+		
+	<br></br><br></br>	
+	
+	<div class="container-fluid" style="background-color: #14446ebf">
+
+		<!-- Portfolio Section -->
+		<h2 style="color: white; text-align: center; margin-bottom: 2%" class="text-uppercase">
+			Universidades Participantes <i class="fas fa-university"></i>
+		</h2>
+			
+		<div class="row">
+			<ui:repeat var="uni" value="#{universidadeController.todasUniversidades}">
+				<div class="col-lg-3 col-sm-4 portfolio-item">
+					<div class="card h-100" style="background-color: #effafa">
+						<a href="#{uni.site}">
+							<img class="card-img-top" src="#{uni.logo}" alt="" style="width: 90%; max-height: 200px"/>
+						</a>
+						<div class="card-body">
+							<h4 class="card-title">
+								<a href="#{uni.site}" class="btn btn-link"><h:outputLabel value="#{uni.sigla}"
+										for="sigla" class="col-form-label" /></a>
+							</h4>
+							<p class="card-text">
+								<h:outputLabel value="#{uni.nome}" for="nome"
+									class="col-form-label" />
+							</p>
+							<div class="col card card-body">
+								<iframe src="#{uni.mapa}" width="100%" frameborder="0" style="border: 0"></iframe>
+							</div>
+						</div>
+					</div>
+				</div>
+			</ui:repeat>
+		</div>
+		
+	</div>
+	
+	<br></br>
+		
+	<div class="container-fluid" style="background-color: #14446ebf">
+		
+		<h1 style="color: white; text-align: center; margin-bottom: 2%" class="text-uppercase my-4">
+			Editoriais <i class="fas fa-book"></i>
+		</h1>
+
+		<div class="row">
+			<ui:repeat var="edi" value="#{editorialController.todosEditorial}">
+				<div class="col-lg-4 col-sm-6 portfolio-item">
+					<div class="card h-100">
+						<a href="#"><img class="card-img-top"
+							src="http://placehold.it/700x400" alt=""></img></a>
+						<div class="card-body">
+							<h4 class="card-title">
+								<h:outputLabel value="#{edi.problema.nome}" for="assunto"
+									class="col-form-label" />
+							</h4>
+							<p class="card-text">
+								<a href="#"><h:outputLabel value="#{edi.conteudo}"
+										for="conteudo" class="col-form-label" /></a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</ui:repeat>
+		</div>
+		<!-- /.row -->
+	</div>
+	
+	<br></br><br></br>
+	
+	<div class="container-fluid" style="background-color: #14446ebf">
+
+		<!-- Features Section -->
+		
+		<h2 style="color: white; text-align: center; margin-bottom: 2%" class="text-uppercase">
+			Contato <i class="fas fa-envelope-square"></i>
+		</h2>
+    	      	<h:form>
+					
+        	    	<div class="card-body">
+        	    		<div class="row">
+        	    		
+        	    			<div class="col-md-6">
+				        	    <h:outputLabel value="Título" for="titulo" class="col-form-label"/>
+								<h:inputText class="form-control" id="titulo" value="#{contatoController.contato.titulo}">
+									<f:passThroughAttribute name="placeholder" value="Digite o titulo do contato"/>
+								</h:inputText>	
+							</div>	
+						
+							<div class="col-md-6">					
+								<h:outputLabel value="Email" for="email" class="col-form-label"/>
+								<h:inputText class="form-control" id="email" value="#{contatoController.contato.email}">
+									<f:passThroughAttribute name="placeholder" value="Digite o email para contato"/>
+								</h:inputText>	
+							</div>
+						</div>
+						
+						<h:outputLabel value="Mensagem:" for="mensagem" class="col-form-label"/>
+						<h:inputTextarea class="form-control" id="mensagem" value="#{contatoController.contato.mensagem}">
+							<f:passThroughAttribute name="placeholder" value="Digite uma mensagem"/>
+						</h:inputTextarea>
+						
+            		</div>
+            		
+            		<div class="card-footer">
+              			<h:commandButton class="btn btn-primary" value="#{(contatoController.contato.id == null)? 'Enviar' : 'Alterar'}" action="#{contatoController.gravar}"/>
+            		</div>
+            		
+            	</h:form>
+		<!-- /.row -->
+
+	</div>
+
+	<ui:include src="Conf/include/footer.xhtml" />
+</h:body>
+</html>

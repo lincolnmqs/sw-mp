@@ -1,0 +1,294 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui = "http://java.sun.com/jsf/facelets">
+     
+<ui:include src="Conf/include/header.xhtml"/>
+<meta charset="UTF-8" />
+
+<h:body>
+
+	<ui:include src="Conf/include/menu.xhtml"/>
+	
+	<f:metadata>
+		<f:event listener="#{loginController.verificaLogado}" type="preRenderView"></f:event>
+	</f:metadata>
+    <!-- Page Content -->
+    <div class="container">
+    
+    	<h:form>
+    	
+    	<div class="row" style="margin-top:5%">
+			<div class="col-12 mx-auto">
+				<h:messages id="msg" class="alert alert-danger alerta"/>
+			</div>
+		</div>
+
+      <!-- Marketing Icons Section -->
+		<div class="row">
+        	<div class="col">
+    	      	<div class="card h-100">
+					<h4 class="card-header">Eventos</h4>
+					
+        	    	<div class="card-body">
+        	    	
+						<div class="form-row">
+						
+							<div class="col-lg-6">
+								<h:outputLabel value="Nome:" for="nome" class="col-form-label"/>
+								<h:inputText class="form-control" id="nome" value="#{eventoController.evento.nome}"
+								 required="true" requiredMessage="Nome Obrigatório.">
+									<f:passThroughAttribute name="placeholder" value="Digite o seu nome do Evento"/>
+									<f:ajax event="blur" render="msg" />
+								</h:inputText>
+							</div>
+								
+							<div class="col-lg-3">	
+								<h:outputLabel value="Data Evento:" for="dataEvento" class="col-form-label"/>
+								<h:inputText class="form-control" id="dataEvento" value="#{eventoController.evento.dataEvento.time}"
+								 required="true" requiredMessage="Data do Evento Obrigatória.">
+									<f:convertDateTime pattern="yyyy-MM-dd" timeZone="America/Sao_Paulo" />
+									<f:passThroughAttribute name="type" value="date"/>
+									<f:ajax event="blur" render="msg" />
+								</h:inputText>
+							</div>
+							
+							<div class="col-lg-3">	
+								<h:outputLabel value="Data de Fechamento das Inscrições:" for="dataFInscricoes" class="col-form-label"/>
+								<h:inputText class="form-control" id="dataFInscricoes" value="#{eventoController.evento.dataFinalInscricao.time}"
+								 required="true" requiredMessage="Data de Ecerramento de Incrição Obrigatória.">
+									<f:convertDateTime pattern="yyyy-MM-dd" timeZone="America/Sao_Paulo" />
+									<f:passThroughAttribute name="type" value="date"/>
+									<f:ajax event="blur" render="msg" />
+								</h:inputText>
+							</div>
+							
+						</div>
+						
+						<div class="form-row">
+													
+							<div class="col-lg-6">
+								<h:outputLabel value="LOGO (link da WEB):" for="imgLogo" class="col-form-label"/>
+								<h:inputText class="form-control" id="imgLogo" value="#{eventoController.evento.imagemLogo}"
+								 required="true" requiredMessage="Imagem do Logo Obrigatória.">
+									<f:passThroughAttribute name="placeholder" value="Digite o endereço WEB do LOGO"/>
+									<f:ajax event="blur" render="msg" />
+								</h:inputText>
+							</div>
+							
+							<div class="col-lg-6">
+								<h:outputLabel value="Banner (link da WEB):" for="imgBanner" class="col-form-label"/>
+								<h:inputText class="form-control" id="imgBanner" value="#{eventoController.evento.imagemBanner}"
+								 required="true" requiredMessage="Imagem do Banner Obrigatória.">
+									<f:passThroughAttribute name="placeholder" value="Digite o endereço WEB do banner"/>
+									<f:ajax event="blur" render="msg" />
+								</h:inputText>
+							</div>
+							
+						</div>
+						
+						<div class="form-row">
+						
+							<div class="col">
+								<h:outputLabel value="Descrição do Evento:" for="descricaoEvento" class="col-form-label"/>
+								<h:inputTextarea class="form-control" id="descricaoEvento" value="#{eventoController.evento.descricao}"
+								 required="true" requiredMessage="Descriação do Evento Obrigatório.">
+									<f:passThroughAttribute name="placeholder" value="Digite sobre o Evento"/>
+									<f:ajax event="blur" render="msg" />
+								</h:inputTextarea>
+							</div>
+							
+						</div>
+						
+						<div class="form-row">
+						
+							<div class="col">
+								<h:outputLabel value="Descrição dos Organizadores:" for="descricaoOrganizadores" class="col-form-label"/>
+								<h:inputTextarea class="form-control" id="descricaoOrganizadores" value="#{eventoController.evento.descricaoOrganizadores}"
+								 required="true" requiredMessage="Descrição dos Organizadores Obrigatório.">
+									<f:passThroughAttribute name="placeholder" value="Digite sobre os Organizadores"/>
+									<f:ajax event="blur" render="msg" />
+								</h:inputTextarea>
+							</div>
+							
+						</div>
+						
+						<div class="form-row" style="margin-top:2%">
+													
+							<div class="col-lg-4"><h4>Informações para Contato</h4></div>
+						
+							<div class="col-lg-8"><hr/></div>
+						
+						</div>
+						
+						<div class="form-row">
+													
+							<div class="col-lg-6">
+								<h:outputLabel value="E-mail de Contato:" for="email" class="col-form-label"/>
+								<h:inputText class="form-control" id="email" value="#{eventoController.evento.emailContato}"
+								 required="true" requiredMessage="E-mail de Contato Obrigatório.">
+									<f:passThroughAttribute name="placeholder" value="exemplo@gmail.com"/>
+									<f:ajax event="blur" render="msg" />
+								</h:inputText>
+							</div>
+							
+							<div class="col-lg-6">
+								<h:outputLabel value="Telefone de Contato:" for="telefone" class="col-form-label"/>
+								<h:inputText class="form-control telefone" id="telefone" value="#{eventoController.evento.telefoneContato}"
+								 required="true" requiredMessage="Telefone de Contato Obrigatório.">
+									<f:passThroughAttribute name="placeholder" value="(xx) xxxxx-xxxx"/>
+									<f:ajax event="blur" render="msg" />
+								</h:inputText>
+							</div>
+							
+						</div>
+						
+						<div class="form-row" style="margin-top:2%">
+						
+							<div class="col-lg-3">
+								<h:outputLabel value="Prova:" for="prova" class="col-form-label"/>
+								<h:selectOneMenu id="prova" value="#{eventoController.provaId}" class="custom-select"
+								 required="true" requiredMessage="Prova Obrigatória.">
+									<f:selectItem itemLabel="Selecionar" noSelectionOption="true"/>
+									<f:selectItems value="#{provaController.todasProvas}" var="prova" itemLabel="#{prova.nome}" itemValue="#{prova.id}"/>
+									<f:ajax event="blur" render="msg" />
+								</h:selectOneMenu>
+							</div>
+						
+							<div class="col-lg-3">
+								<h:outputLabel value="Universidade:" for="universidade" class="col-form-label"/>
+								<h:selectOneMenu id="universidade" value="#{eventoController.universidadeId}" class="custom-select"
+								 required="true" requiredMessage="Universidade Obrigatória.">
+									<f:selectItem itemLabel="Selecionar" noSelectionOption="true"/>
+									<f:selectItems value="#{usuarioController.todasUniversidades}" var="universidade" itemLabel="#{universidade.nome}" itemValue="#{universidade.id}"/>
+									<f:ajax event="blur" render="msg" />
+								</h:selectOneMenu>
+							</div>
+							
+							<div class="col-lg-3">
+								<h:outputLabel value="Situação Evento:" for="situacao" class="col-form-label"/>
+								<h:selectOneMenu id="situacao" value="#{eventoController.evento.aberto}" class="custom-select"
+								 required="true" requiredMessage="Situação Obrigatória.">
+									<f:selectItem itemLabel="Selecionar" noSelectionOption="true"/>
+									<f:selectItem itemLabel="Aberto" itemValue="true" />
+									<f:selectItem itemLabel="Encerrado" itemValue="false" />
+									<f:ajax event="blur" render="msg" />
+								</h:selectOneMenu>
+							</div>
+							
+						</div>
+						<hr/>
+						<h3>Colocações</h3>
+						<div class="form-row">
+						
+							<div class="col-lg-3">
+								<h:outputLabel value="Colocação:" for="colocacao" class="col-form-label"/>
+								<h:selectOneMenu id="colocacao" value="#{eventoController.colocacaoId}" class="custom-select">
+									<f:selectItem itemLabel="Selecionar" noSelectionOption="true"/>
+									<f:selectItems value="#{colocacaoController.todasColocacoes}" var="coloc" itemLabel="#{coloc.nome}" itemValue="#{coloc.id}"/>
+								</h:selectOneMenu>					
+							</div>
+							
+							<div class="col-lg-7">
+								<h:outputLabel value="Premiação:" for="premiacao" class="col-form-label"/>
+								<h:inputText class="form-control" id="premiacao" value="#{eventoController.premiacao}">
+									<f:passThroughAttribute name="placeholder" value="Digite a premiação dessa colocação"/>
+								</h:inputText>
+							</div>
+							
+							<div class="col-lg-2">
+								<h:commandButton class="btn btn-danger" style="margin-top:38px" value="Adicionar" action="#{eventoController.gravarPremiacao}">
+									<f:ajax execute="colocacao premiacao" render="colocacao premiacao msg tabelaColocacoes"/>
+								</h:commandButton>
+							</div>
+							
+						</div>
+						
+						<div class="form-row">
+							<div class="col">
+								<h:dataTable style="margin-top:2%" class="table table-hover table-responsive-md" 
+								value="#{eventoController.premiacoesdoEvento}" var="rank" id="tabelaColocacoes">
+									<h:column>
+										<f:facet name="header">Nome</f:facet>
+										<h:outputText value="#{rank.colocacao.nome}"/>
+									</h:column>
+											
+									<h:column>
+										<f:facet name="header">Premiação</f:facet>
+										<h:outputText value="#{rank.premiacao}"/>
+									</h:column>
+											
+									<h:column>
+										<f:facet name="header">Remover</f:facet>
+										<h:commandLink value="X" class="btn btn-danger" action="#{eventoController.removerPremiacao(rank)}">
+											<f:ajax execute="data" render="tabelaColocacao"/>
+										</h:commandLink>
+									</h:column>
+								</h:dataTable>
+							</div>
+						</div>
+						
+            		</div>
+            		
+            		<div class="card-footer">
+              			<h:commandButton class="btn btn-primary" value="#{(eventoController.evento.id == null)? 'Inserir' : 'Alterar'}" action="#{eventoController.gravar}"/>
+              			<h:commandButton class="btn btn-danger"  style="margin-left: 2%" value="Limpar" action="#{eventoController.limpar}"/>
+            		</div>
+            		
+          		</div>
+        	</div>
+        </div>
+        
+        </h:form>
+        
+        <div class="row" style="margin-top: 2%; margin-bottom: 1%">
+        	<div class="col">
+        		<h:form>
+    	      	<div class="card h-100">
+					<h4 class="card-header">Opções Eventos</h4>
+        	    	<div class="card-body">
+            	  		<h:dataTable class="table table-striped table-hover table-responsive-lg" value="#{eventoController.todosEventos}" var="eve">
+							<h:column>
+								<f:facet name="header">Identificador</f:facet>
+								<h:outputText value="#{eve.id}"/>
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Nome</f:facet>
+								<h:outputText value="#{eve.nome}"/>
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Descricao</f:facet>
+								<h:outputText value="#{(eve.descricao.length() > 50) ? eve.descricao.substring(0, 50) : eve.descricao}"/>
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Universidade</f:facet>
+								<h:outputText value="#{eve.universidade.nome}"/>
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Ações</f:facet>
+								<h:commandLink class="btn btn-danger" value="Remove" action="#{eventoController.remover(eve)}"/>
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header"></f:facet>
+								<h:commandLink class="btn btn-primary" value="Alterar" action="#{eventoController.carregar(eve)}"/>
+							</h:column>
+						</h:dataTable>
+            		</div>
+          		</div>
+          		</h:form>
+        	</div>
+        </div>
+    </div>
+
+	<ui:include src="Conf/include/footer.xhtml"/>
+	
+</h:body>
+</html>

@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui = "http://java.sun.com/jsf/facelets">
+     
+<ui:include src="Conf/include/header.xhtml"/>
+<meta charset="UTF-8" />
+
+<h:body>
+
+	<ui:include src="Conf/include/menu.xhtml"/>
+	
+	<f:metadata>
+		<f:event listener="#{loginController.verificaLogado}" type="preRenderView"></f:event>
+	</f:metadata>
+	
+	<f:metadata>
+		<f:event listener="#{usuarioController.carregar(loginController.usu)}" type="preRenderView"></f:event>
+	</f:metadata>
+
+    <!-- Page Content -->
+    <div class="container" style="margin-bottom: 5%">
+
+      <!-- Marketing Icons Section -->
+		<div class="row" style="margin-top: 5%">
+        	<div class="col">
+    	      	<div class="card h-100">
+					<h4 class="card-header">Alterar Perfil</h4>
+					<h:form>
+					
+        	    	<div class="card-body">
+        	    	
+						<div class="form-row">
+						
+							<div class="col-md-6">
+								<h:outputLabel value="Nome:" for="nome" class="col-form-label"/>
+								<h:inputText class="form-control" id="nome" disabled="#{usuarioController.controle}" value="#{usuarioController.usuario.nome}">
+									<f:passThroughAttribute name="placeholder" value="Digite o seu nome"/>
+								</h:inputText>
+							</div>
+								
+							<div class="col-md-3">	
+								<h:outputLabel value="CPF:" for="cpf" class="col-form-label"/>
+								<h:inputText class="form-control cpf" id="cpf" disabled="#{usuarioController.controle}" value="#{usuarioController.usuario.cpf}">
+									<f:passThroughAttribute name="placeholder" value="Digite o seu cpf"/>
+								</h:inputText>
+							</div>
+							
+							<div class="col-md-3">
+								<h:outputLabel value="Telefone:" for="telefone" class="col-form-label"/>
+								<h:inputText class="form-control telefone" id="telefone" disabled="#{usuarioController.controle}" value="#{usuarioController.usuario.ddd_telefone}">
+									<f:passThroughAttribute name="placeholder" value="(xx) xxxxx-xxxx"/>
+								</h:inputText>
+							</div>
+							
+						</div>
+						
+						<div class="form-row">
+						
+							<div class="col-md-5">
+								<h:outputLabel value="Curso/Período/Ano:" for="curso_periodo" class="col-form-label"/>
+								<h:inputText class="form-control" id="curso_periodo" disabled="#{usuarioController.controle}" value="#{usuarioController.usuario.curso_periodo}">
+									<f:passThroughAttribute name="placeholder" value="Digite o seu curso e período"/>
+								</h:inputText>
+							</div>
+							
+							<div class="col-md-4">
+								<h:outputLabel value="E-mail:" for="email" class="col-form-label"/>
+								<h:inputText class="form-control" id="email" disabled="#{usuarioController.controle}" value="#{usuarioController.usuario.email}"/>
+								<f:passThroughAttribute name="placeholder" value="Digite o seu email"/>
+							</div>
+						
+							<div class="col-lg-3">
+								<h:outputLabel value="Universidade" for="universidade" class="col-form-label"/>
+								<h:selectOneMenu id="universidade" disabled="#{usuarioController.controle}" value="#{usuarioController.universidadeId}" class="custom-select">
+									<f:selectItem itemLabel="Selecionar" noSelectionOption="true"/>
+									<f:selectItems value="#{usuarioController.todasUniversidades}" var="universidade" itemLabel="#{universidade.nome}" itemValue="#{universidade.id}"/>
+								</h:selectOneMenu>
+							</div>
+							
+						</div>
+						
+						<div class="form-row" style="#{(usuarioController.controle) ? 'display: none' : ''}">
+						
+							<div class="col-lg-6">
+								<h:outputLabel value="Senha:" for="senha" class="col-form-label"/>
+								<h:inputText class="form-control" id="senha" value="#{usuarioController.usuario.senha}">
+									<f:passThroughAttribute name="placeholder" value="Digite a sua senha antiga ou nova senha"/>
+									<f:passThroughAttribute name="type" value="password"/>
+								</h:inputText>
+							</div>
+							
+							<div class="col-lg-6">
+								<h:outputLabel value="Confirmar Senha:" for="confirmarSenha" class="col-form-label"/>
+								<h:inputText class="form-control" id="confirmarSenha" value="#{usuarioController.confirmarSenha}">
+									<f:passThroughAttribute name="placeholder" value="Digite a sua senha antiga ou senha novamente"/>
+									<f:passThroughAttribute name="type" value="password"/>
+								</h:inputText>
+							</div>
+							
+						</div>
+						
+            		</div>
+            		
+            		<div class="card-footer">
+            			<h:commandButton class="btn btn-primary" style="#{(!usuarioController.controle) ? 'display: none' : ''}" value="Alterar" action="#{usuarioController.alterarControle}"/>
+              			<h:commandButton class="btn btn-success" style="#{(usuarioController.controle) ? 'display: none' : ''}" value="Salvar" action="#{usuarioController.gravar}"/>
+              			<h:commandButton class="btn btn-danger" style="#{(usuarioController.controle) ? 'display: none' : 'margin-left:2%'}" value="Cancelar" action="#{usuarioController.mudaControle}"/>
+            		</div>
+            		
+            		</h:form>
+          		</div>
+        	</div>
+        </div>
+        
+         <!-- Marketing Icons Section -->
+		<div class="row mt-3" style="#{(loginController.usu.nivel_acesso)? 'display: none' : ''}">
+        	<div class="col">
+    	      	<div class="card h-100">
+					<h4 class="card-header">Equipe</h4>
+					<h:form>
+					
+        	    	<div class="card-body">
+        	    	
+						<div class="form-row">
+						
+							<div class="col-lg-6">
+								<h:outputLabel value="Nome:" for="nome" class="col-form-label"/>
+								<h:inputText class="form-control" disabled="true" id="nome" value="#{equipeController.equipe.nome}">
+									<f:passThroughAttribute name="placeholder" value="Digite o seu nome da Equipe"/>
+								</h:inputText>
+							</div>
+								
+							<div class="col-lg-3">	
+								<h:outputLabel value="Data Criação" for="dataCriacao" class="col-form-label"/>
+								<h:inputText class="form-control" disabled="true" id="dataCriacao" value="#{equipeController.equipe.dataCriacao.time}">
+									<f:convertDateTime pattern="yyyy-MM-dd" timeZone="America/Sao_Paulo" />
+									<f:passThroughAttribute name="type" value="date"/>
+								</h:inputText>
+							</div>
+							
+							<div class="col-lg-3">
+								<h:outputLabel value="Nível:" for="nivel" class="col-form-label"/>
+								<h:selectOneMenu id="nivel" disabled="true" value="#{equipeController.equipe.nivel}" class="custom-select">
+									<f:selectItem itemLabel="Selecionar" noSelectionOption="true"/>
+									<f:selectItem itemLabel="Superior" itemValue="true" />
+									<f:selectItem itemLabel="Técnico" itemValue="false" />
+								</h:selectOneMenu>
+							</div>
+							
+						</div>
+						
+						<div class="form-row">
+						
+							<div class="col-lg-3">
+								<h:outputLabel value="Pontuação:" for="pontuacao" class="col-form-label"/>
+								<h:inputText class="form-control" id="pontuacao" disabled="true" value="#{equipeController.equipe.pontuacao}">
+									<f:passThroughAttribute name="placeholder" value="0"/>
+								</h:inputText>
+							</div>
+						
+							<div class="col-lg-3">
+								<h:outputLabel value="Participante 1:" for="participante1" class="col-form-label"/>
+								<h:selectOneMenu id="participante1" disabled="true" value="#{equipeController.participanteId1}" class="custom-select">
+									<f:selectItem itemLabel="Selecionar" noSelectionOption="true"/>
+									<f:selectItems value="#{equipeController.todosUsuarios}" var="part1" itemLabel="#{part1.nome}" itemValue="#{part1.id}"/>
+								</h:selectOneMenu>
+							</div>
+						
+							<div class="col-lg-3">
+								<h:outputLabel value="Participante 2:" for="participante2" class="col-form-label"/>
+								<h:selectOneMenu id="participante2" disabled="true" value="#{equipeController.participanteId2}" class="custom-select">
+									<f:selectItem itemLabel="Selecionar" noSelectionOption="true"/>
+									<f:selectItems value="#{equipeController.todosUsuarios}" var="part2" itemLabel="#{part2.nome}" itemValue="#{part2.id}"/>
+								</h:selectOneMenu>
+							</div>
+							
+							<div class="col-lg-3">
+								<h:outputLabel value="Participante 3:" for="participante3" class="col-form-label"/>
+								<h:selectOneMenu id="participante3" disabled="true" value="#{equipeController.participanteId3}" class="custom-select">
+									<f:selectItem itemLabel="Selecionar" noSelectionOption="true"/>
+									<f:selectItems value="#{equipeController.todosUsuarios}" var="part3" itemLabel="#{part3.nome}" itemValue="#{part3.id}"/>
+								</h:selectOneMenu>
+							</div>
+							
+						</div>
+						
+						<div class="form-row">
+						
+							<div class="col-lg-6">
+								<h:outputLabel value="Evento" for="evento" class="col-form-label"/>
+								<h:inputText class="form-control" id="evento" disabled="true" value="#{equipeController.equipe.evento.nome}">
+									<f:passThroughAttribute name="placeholder" value=""/>
+								</h:inputText>
+							</div>
+							
+						</div>
+						
+            		</div>
+            		
+            		<div class="card-footer">
+              			<h:commandButton class="btn btn-danger" value="Limpar" action="#{equipeController.limpar}"/>
+            		</div>
+            		
+            		</h:form>
+          		</div>
+        	</div>
+        </div>
+        
+        <div class="row mt-3" style="#{(loginController.usu.nivel_acesso)? 'display: none' : ''}">
+        	<div class="col">
+        		<h:form>
+    	      	<div class="card h-100">
+					<h4 class="card-header">Opções Equipes</h4>
+        	    	<div class="card-body">
+            	  		<h:dataTable class="table table-striped table-hover table-responsive-md" value="#{equipeController.todasEquipesUsuario}" var="equi">
+							<h:column>
+								<f:facet name="header">Identificador</f:facet>
+								<h:outputText value="#{equi.id}"/>
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Nome</f:facet>
+								<h:outputText value="#{equi.nome}"/>
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Nível</f:facet>
+								<h:outputText value="#{(equi.nivel) ? 'Superior' : 'Técnico'}"/>
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Evento</f:facet>
+								<h:outputText value="#{equi.evento.nome}"/>
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Visualizar</f:facet>
+								<h:commandLink class="btn btn-primary" value="Visualizar" action="#{equipeController.carregar(equi)}"/>
+							</h:column>
+						</h:dataTable>
+            		</div>
+          		</div>
+          		</h:form>
+        	</div>
+        </div>
+    </div>
+
+	<ui:include src="Conf/include/footer.xhtml"/>
+	
+</h:body>
+</html>

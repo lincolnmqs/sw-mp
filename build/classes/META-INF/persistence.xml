@@ -1,0 +1,81 @@
+﻿<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+    version="2.0">
+
+    <!-- unidade de persistencia com o nome a ser definido -->
+    <persistence-unit name="bd_mp">
+
+        <!-- Implementação do JPA, no nosso caso Hibernate -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- Aqui são listadas todas as entidades -->
+        <class>model.Cidade</class>
+        <class>model.Estado</class>
+        <class>model.Pais</class>
+        <class>model.Prova</class>
+        <class>model.Colocacao</class>
+        <class>model.Assunto</class>
+        <class>model.Universidade</class>
+        <class>model.Usuario</class>
+        <class>model.Feedback</class>
+        <class>model.Editorial</class>
+        <class>model.Evento</class>
+        <class>model.Ranking</class>
+        <class>model.Equipe</class>
+        <class>model.Contato</class>
+		
+        <properties>    
+            <!-- Propriedades JDBC -->
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/bd_mp" />
+
+            <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="" />
+
+            <!-- Configurações específicas do Hibernate -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" /> <!-- Gera sql específico do banco - linguagem -->
+
+            <property name="hibernate.hbm2ddl.auto" value="update" /> <!-- Cria tabelas e atualiza colunas (incremento, não apaga nada). Outras: create, create-drop, none -->
+            <property name="hibernate.show_sql" value="true" /> <!-- Mostra sql executado -->
+            <property name="hibernate.format_sql" value="true" /> <!-- Formata sql executado -->
+        </properties>
+    </persistence-unit>
+    
+    <persistence-unit name="bd_mp_server">
+
+        <!-- Implementação do JPA, no nosso caso Hibernate -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- Aqui são listadas todas as entidades -->
+        <class>model.Cidade</class>
+        <class>model.Estado</class>
+        <class>model.Pais</class>
+        <class>model.Prova</class>
+        <class>model.Colocacao</class>
+        <class>model.Assunto</class>
+        <class>model.Universidade</class>
+        <class>model.Usuario</class>
+        <class>model.Feedback</class>
+        <class>model.Editorial</class>
+		
+        <properties>    
+            <!-- Propriedades JDBC -->
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://35.192.209.111/bd_mp" />
+
+            <property name="javax.persistence.jdbc.user" value="Natan" />
+            <property name="javax.persistence.jdbc.password" value="123456" />
+
+            <!-- Configurações específicas do Hibernate -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" /> <!-- Gera sql específico do banco - linguagem -->
+
+            <property name="hibernate.hbm2ddl.auto" value="update" /> <!-- Cria tabelas e atualiza colunas (incremento, não apaga nada). Outras: create, create-drop, none -->
+            <property name="hibernate.show_sql" value="true" /> <!-- Mostra sql executado -->
+            <property name="hibernate.format_sql" value="true" /> <!-- Formata sql executado -->
+        </properties>
+    </persistence-unit>
+</persistence>

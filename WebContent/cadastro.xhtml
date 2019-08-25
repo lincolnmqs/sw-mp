@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui = "http://java.sun.com/jsf/facelets"
+      xmlns:p = "http://primefaces.org/ui">
+     
+<ui:include src="Conf/include/header.xhtml"/>
+
+<h:body>
+
+	<ui:include src="Conf/include/menu.xhtml"/>
+	
+	<div class="container-fluid" style="margin-top: 3%">
+		<div class="row">
+			<div class="col-6 mx-auto">
+				<h:messages id="msg" class="alert alert-danger alerta"/>
+			</div>
+		</div>
+	</div>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Marketing Icons Section -->
+		<div class="row mb-5">
+        	<div class="col">
+    	      	<div class="card h-100">
+					<h4 class="card-header">Cadastrar</h4>
+					<h:form>
+					
+        	    	<div class="card-body">
+        	    	
+						<div class="form-row">
+						
+							<div class="col-md-6">
+								<h:outputLabel value="Nome:*" for="nome" class="col-form-label"/>
+								<h:inputText class="form-control" id="nome" value="#{usuarioController.usuario.nome}" required="true" requiredMessage="Nome Obrigatório.">
+									<f:passThroughAttribute name="placeholder" value="Digite o seu nome"/>
+									<f:ajax event="blur" render="msg" />
+								</h:inputText>
+							</div>
+								
+							<div class="col-md-3">	
+								<h:outputLabel value="CPF:*" for="cpf" class="col-form-label"/>
+								<h:inputText class="form-control cpf" id="cpf" value="#{usuarioController.usuario.cpf}" required="true" requiredMessage="CPF Obrigatório." validatorMessage="CPF inválido. Digite no formáto XXX.XXX.XXX-XX">
+									<f:passThroughAttribute name="placeholder" value="Digite o seu cpf"/>
+									<f:validateRegex pattern="^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$"/>
+									<f:ajax event="blur" render="msg" />
+								</h:inputText>
+								<!-- <h:message for="cpf" class="text-danger"/> -->
+							</div>
+							
+							<div class="col-md-3">
+								<h:outputLabel value="Telefone:*" for="telefone" class="col-form-label"/>
+								<h:inputText class="form-control telefone" id="telefone" value="#{usuarioController.usuario.ddd_telefone}" required="true" requiredMessage="Telefone Obrigatório." validatorMessage="Telefone inválido. Digite no formáto (XX)XXXXX-XXXX">
+									<f:passThroughAttribute name="placeholder" value="(xx) xxxxx-xxxx"/>
+									<f:validateRegex pattern="^\([0-9]{2}\)\ [0-9]{5}\-[0-9]{4}$"/>
+									<f:ajax event="blur" render="msg" />
+								</h:inputText>
+							</div>
+							
+						</div>
+						
+						<div class="form-row">
+						
+							<div class="col-md-4">
+								<h:outputLabel value="Senha:*" for="senha" class="col-form-label"/>
+								<h:inputText class="form-control" id="senha" value="#{usuarioController.usuario.senha}" required="true" requiredMessage="Senha Obrigatório.">
+									<f:passThroughAttribute name="placeholder" value="Digite a senha"/>
+									<f:passThroughAttribute name="type" value="password"/>
+									<f:ajax event="blur" render="msg" />
+								</h:inputText>
+							</div>
+			
+							
+							<div class="col-md-4">
+								<h:outputLabel value="Confirmar Senha:*" for="confirmarSenha" class="col-form-label"/>
+								<h:inputText class="form-control" id="confirmarSenha" value="#{usuarioController.confirmarSenha}">
+									<f:passThroughAttribute name="placeholder" value="Digite a sua senha novamente"/>
+									<f:passThroughAttribute name="type" value="password"/>
+									<f:ajax event="blur" render="msg" />
+								</h:inputText>
+							</div>
+							
+							<div class="col-md-4">
+								<h:outputLabel value="E-mail:*" for="email" class="col-form-label"/>
+								<h:inputText class="form-control" id="email" value="#{usuarioController.usuario.email}" required="true" requiredMessage="E-mail Obrigatório.">
+									<f:passThroughAttribute name="placeholder" value="exemplo@gmail.com"/>
+									<f:passThroughAttribute name="type" value="email"/>
+									<f:ajax event="blur" render="msg" />
+								</h:inputText>
+							</div>
+							
+						</div>
+						
+						<div class="form-row">
+						
+							<div class="col-md-6">
+								<h:outputLabel value="Curso/Período/Ano:*" for="curso_periodo" class="col-form-label"/>
+								<h:inputText class="form-control" id="curso_periodo" value="#{usuarioController.usuario.curso_periodo}" required="true" requiredMessage="Curso/Período Obrigatório.">
+									<f:passThroughAttribute name="placeholder" value="Digite o seu curso e período"/>
+									<f:ajax event="blur" render="msg" />
+								</h:inputText>
+							</div>
+							
+							<div class="col-md-3">
+								<h:outputLabel value="Pontuação:" for="pontuacao" class="col-form-label"/>
+								<h:inputText class="form-control" id="pontuacao" disabled="true" value="#{usuarioController.usuario.pontuacao}">
+									<f:passThroughAttribute name="placeholder" value=""/>
+								</h:inputText>
+							</div>
+						
+							<div class="col-md-3">
+								<h:outputLabel value="Universidade:*" for="universidade" class="col-form-label"/>
+								<h:selectOneMenu id="universidade" value="#{usuarioController.universidadeId}" class="custom-select" required="true" requiredMessage="Universidade Obrigatória.">
+									<f:selectItem itemLabel="Selecionar" noSelectionOption="true"/>
+									<f:selectItems value="#{usuarioController.todasUniversidades}" var="universidade" itemLabel="#{universidade.nome}" itemValue="#{universidade.id}"/>
+									<f:ajax event="blur" render="msg" />
+								</h:selectOneMenu>
+							</div>
+							
+						</div>
+						
+            		</div>
+            		
+            		<div class="card-footer">
+              			<h:commandButton class="btn btn-primary" value="CADASTRAR" action="#{usuarioController.gravar}"/>
+            		</div>
+            		
+            		</h:form>
+          		</div>
+        	</div>
+        </div>
+    </div>
+
+	<ui:include src="Conf/include/footer.xhtml"/>
+	
+</h:body>
+</html>

@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:include src="Conf/include/header.xhtml" />
+
+<h:head>
+	<style>
+		.trofeu {
+			font-size: 120%;
+		    background: #fff;
+		    padding: 9px;
+		    border-radius: 100%;
+		    margin: -5px;
+		    border: 1px solid #808080;
+		}
+	</style>
+</h:head>
+
+<h:body>
+
+	<ui:include src="Conf/include/menu.xhtml" />
+
+	<!-- Page Content -->
+	<div class="container">
+
+		<div class="row" style="margin-top: 5%; margin-bottom: 1%">
+			<div class="col">
+				<h:form>
+					<div class="card h-100">
+						<h4 class="card-header">Ranking de Usuários</h4>
+
+						<div class="card-body">
+
+							<table class="table table-striped table-hover table-responsive-lg">
+								<thead>
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col">Competidores</th>
+										<th scope="col">Pontuação</th>
+										<th scope="col">Universidade</th>
+									</tr>
+								</thead>
+								<tbody>
+									<ui:repeat value="#{rankingController.rankingUsuario}"
+										var="rank">
+										<tr style="#{(rankingController.contador == 1) ? 'background-color: #edf856;':(rankingController.contador == 2)? 'background-color: #e3dcdc' : (rankingController.contador == 3)? 'background-color: #fac38c':''}">
+											<th scope="row" style="text-align:center;">
+												<i style="#{(rankingController.contador == 1) ? 'color: #edf856': (rankingController.contador == 2) ? 'color: #e3dcdc' : (rankingController.contador == 3) ? 'color: #fac38c' : 'display: none;'}" class="fas fa-trophy trofeu"></i>
+												#{(rankingController.contador > 3) ? rankingController.contador : ''}
+											</th>
+											<td>#{rank.nome}</td>
+											<td>#{rank.pontuacao}</td>
+											<td>#{rank.universidade.sigla}</td>
+										</tr>
+									    #{rankingController.setContador(rankingController.contador + 1)}
+									</ui:repeat>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</h:form>
+			</div>
+		</div>
+
+
+		<div class="row" style="margin-top: 2%; margin-bottom: 1%">
+			<div class="col">
+				<h:form>
+					
+					#{rankingController.setContador(1)}
+				
+					<div class="card h-100">
+						<h4 class="card-header">Ranking de Universidades</h4>
+						<div class="card-body">
+
+							<table class="table table-striped table-hover table-responsive-lg">
+								<thead>
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col">Instituição</th>
+										<th scope="col">Pontuação</th>
+										<th scope="col">Cidade</th>
+									</tr>
+								</thead>
+								<tbody>
+									<ui:repeat value="#{rankingController.rankingUniversidade}"
+										var="rank">
+										<tr style="#{(rankingController.contador == 1) ? 'background-color: #edf856;':(rankingController.contador == 2)? 'background-color: #e3dcdc' : (rankingController.contador == 3)? 'background-color: #fac38c':''}">
+											<th scope="row" style="text-align:center;">
+												<i style="#{(rankingController.contador == 1) ? 'color: #edf856': (rankingController.contador == 2) ? 'color: #e3dcdc' : (rankingController.contador == 3) ? 'color: #fac38c' : 'display: none;'}" class="fas fa-trophy trofeu"></i>
+												#{(rankingController.contador > 3) ? rankingController.contador : ''}
+											</th>
+											<td>#{rank.nome}</td>
+											<td>#{rank.pontuacao}</td>
+											<td>#{rank.cidade.nome}</td>
+										</tr>
+									    #{rankingController.setContador(rankingController.contador + 1)}
+									</ui:repeat>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</h:form>
+			</div>
+		</div>
+	</div>
+
+	<ui:include src="Conf/include/footer.xhtml" />
+</h:body>
+</html>
